@@ -2,8 +2,9 @@ import requests
 import json
  
 def main():
+    player = "Red Sly Fox"
     apikey = 'RGAPI-9299b298-5fdd-4d1d-9962-0f5e9c00e5da'
-    playerid = "Red Sly Fox"
+    playerid = player
     region = "na1"
     URL = "https://" + region + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + playerid + "?api_key=" + apikey
     response = requests.get(URL)
