@@ -1,6 +1,6 @@
 import requests
-
-
+import json
+ 
 def main():
     apikey = 'RGAPI-9299b298-5fdd-4d1d-9962-0f5e9c00e5da'
     playerid = "Red Sly Fox"
@@ -15,13 +15,19 @@ def matches():
     encryptedAccountID = 'accountid'
     URL = "https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/3A8CV3VkKPSlhVnee-WROo_4zVANB-ka34KMa2UZpTTR5fY?queue=420&api_key=RGAPI-9299b298-5fdd-4d1d-9962-0f5e9c00e5da"
     queue = 420
-    endindex = 1
+    endindex = 20
     response = requests.get(URL)
     response = response.json()
-    print(response)
-
+    return (response)
+###
+#def matchhistory(matches):
+#    matchhistory = json.loads(matches)
+#    wins = {}
+#    for (match in matchhistory):
+#        wins[matchhistory[matchid]]= #the win loss variable
+###
 if __name__ == '__main__':
     main()
-    matches()
-    matchhistory()
+    ms = matches()
+    #matchhistory(ms)
  
