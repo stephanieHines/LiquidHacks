@@ -7,8 +7,16 @@
 #gets summoner name from input in GUI
 def getMatches(summonerName){
     #accesses riot api and retrieves 20? most recent matches
-    list matches
+    matches = []
+    
+    #call to method that sly provides
+
+    #how to store whatever he returns??
+
+
     #here get the matches and put them in list (or some other structure :))
+    for (item: providedstuff):
+        matches.add()
     return matches
 }
 
@@ -32,3 +40,9 @@ class question:
         self.answers = answers
     }
 
+
+
+def askQs(question[] q){
+    for (question:q):
+        
+}
