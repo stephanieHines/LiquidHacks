@@ -23,3 +23,12 @@ def calcWinRate(matchesList):
     int wins, losses
     double winRate = wins/losses
     return winRate
+
+
+#question class for multiple choice quiz
+class question:
+    def __init__(self,String a, String[] answers){
+        self.question = a
+        self.answers = answers
+    }
+
