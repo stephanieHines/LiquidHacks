@@ -115,7 +115,7 @@ class QuizUI:
         self.adc_emote = tkinter.PhotoImage(master = self._quiz_window, file = "Adoeable-Emote.gif")
         self.supp = tkinter.PhotoImage(master = self._quiz_window, file = "DJSonaSquare.gif")
         self.supp_emote = tkinter.PhotoImage(master = self._quiz_window, file = "Are-You-Serious-Emote.gif")
-
+        
         self._canvas = tkinter.Canvas(
             master = self._quiz_window, width = 400, height = 500)
 
@@ -288,10 +288,11 @@ class QuizUI:
         
 
 class winrateWindow:
-        #self.choice_frame.destroy()  ??? is there a different frame to destroy?
     def __init__(self, winrate): 
         self.winrate_window = tkinter.Tk()
-        #self.title_label.config(text = "Here is your current win rate")
+        self.loser_image = tkinter.PhotoImage(master=self.winrate_window, file = "r9E_Xctk-LnDTJCxh8aC6YI8Oz2QqQSEK_wdrGNggkLBtcUmokMmHbIORA6-q-rDqZVoJhJ-T-GToNJEZZ1k1PeL6L7GoR2uZmfi.gif")
+        self.winner_image = tkinter.PhotoImage(master=self.winrate_window, file = "lol_league_of_legends_pool_party_taliyah_updated.gif")
+        self.hardstuck_image = tkinter.PhotoImage(master= self.winrate_window, file ="t1.gif" )
         self._canvas = tkinter.Canvas(
             master = self.winrate_window, width = 400, height = 500)
 
@@ -299,12 +300,18 @@ class winrateWindow:
             master = self.winrate_window, text = "Here is your win rate: {}".format(winrate), 
             font = DEFAULT_FONT)
         self.title_label.grid(
-            row = 0, column = 0, padx = 10, pady = 10,
+            row = 1, column = 0, padx = 10, pady = 10,
             sticky = tkinter.N)
 
-        self.choice_frame = tkinter.Frame(master = self.winrate_window)
-        #topemote_label = tkinter.Label(master = self.winrate_window, )
-        #topemote_label.grid(row = 1, column = 0, padx = 10, pady = 10,sticky = tkinter.N + tkinter.S)
+        self.result_frame = tkinter.Frame(master = self.winrate_window)
+        if (winrate>.5):
+            winemote_label = tkinter.Label(master = self.winrate_window, image = self.winner_image)
+        elif (winrate<.5):
+            winemote_label = tkinter.Label(master = self.winrate_window, image = self.loser_image)
+        else:
+            winemote_label = tkinter.Label(master = self.winrate_window, image = self.hardstuck_image)
+        
+        winemote_label.grid(row = 2, column = 0, padx = 10, pady = 10,sticky = tkinter.N + tkinter.S)
     def run(self) -> None:
         self.winrate_window.mainloop()
 
@@ -329,7 +336,6 @@ if __name__ == '__main__':
 
 
 ##next: delete print statement in MatchHistoryGrabber -- kind of done -
-#make next button for role description
-#have winrate calc in parallel??
+#have winrate calc in parallel?? <--????
 #make winrate window pretty/do ifs for statements regarding winrate
 #put close button on that to finish out quiz :)
