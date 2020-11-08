@@ -3,6 +3,7 @@ __author__ = 'Derek Morales'
 import tkinter
 import MatchHistoryGrabber
 
+
 DEFAULT_FONT = ('Times New Roman', 12)
 
 class WinQueueUI:
@@ -103,7 +104,7 @@ class WinQueueUI:
         self._root_window.destroy()
 
 class QuizUI:
-    def __init__(self, ig):
+    def __init__(self, ig,riot_api_key):
         self._quiz_window = tkinter.Tk()
         self.top = tkinter.PhotoImage(master = self._quiz_window, file = "DariusSquare.gif")
         self.top_emote = tkinter.PhotoImage(master = self._quiz_window, file = "Youre-Next-Emote.gif")
@@ -115,7 +116,9 @@ class QuizUI:
         self.adc_emote = tkinter.PhotoImage(master = self._quiz_window, file = "Adoeable-Emote.gif")
         self.supp = tkinter.PhotoImage(master = self._quiz_window, file = "DJSonaSquare.gif")
         self.supp_emote = tkinter.PhotoImage(master = self._quiz_window, file = "Are-You-Serious-Emote.gif")
-        
+        self.ig = ig
+        self.riot_api_key = riot_api_key
+        self.winrate =0
         self._canvas = tkinter.Canvas(
             master = self._quiz_window, width = 400, height = 500)
 
@@ -284,8 +287,15 @@ class QuizUI:
         self.ok_button.grid(row = 2, column = 0, padx = 10, pady = 10,
             sticky =  tkinter.S)
     def _ok_button(self):
+        #progbar = tkinter.ttk.Progressbar(parent = self._quiz_window, orient='horizontal', length=200, mode='indeterminate')
+        #progbar.start()
+        self.winrate = self.getWinrate()
+        #progbar.stop()
         self._quiz_window.destroy()
-        
+    def getWinrate(self):
+        return MatchHistoryGrabber.getMatchHistory(self.riot_api_key,self.ig)
+    def getWinrateCalculated(self):
+        return self.winrate
 
 class winrateWindow:
     def __init__(self, winrate): 
@@ -312,6 +322,15 @@ class winrateWindow:
             winemote_label = tkinter.Label(master = self.winrate_window, image = self.hardstuck_image)
         
         winemote_label.grid(row = 2, column = 0, padx = 10, pady = 10,sticky = tkinter.N + tkinter.S)
+
+        cancel_button = tkinter.Button(
+            master = self.winrate_window, text = 'Finish', font = DEFAULT_FONT,
+            command = self._cancel_button)
+
+        cancel_button.grid(row = 2, column = 0, padx = 10, pady = 10,
+            sticky = tkinter.E + tkinter.W + tkinter.N + tkinter.S)
+    def _cancel_button(self):
+        self.winrate_window.destroy()
     def run(self) -> None:
         self.winrate_window.mainloop()
 
@@ -323,10 +342,13 @@ class winrateWindow:
 if __name__ == '__main__':
     winqueue = WinQueueUI()
     winqueue.run()
+    
     player_ig = winqueue.get_ig()
     riot_api_key = winqueue.get_api()
-    winrate = MatchHistoryGrabber.getMatchHistory(riot_api_key,player_ig)
-    QuizUI(player_ig).run()
+    
+    quiz = QuizUI(player_ig,riot_api_key)
+    quiz.run()
+    winrate = quiz.getWinrateCalculated()
     winrateWindow(winrate).run()
     
 
@@ -335,7 +357,7 @@ if __name__ == '__main__':
     
 
 
-##next: delete print statement in MatchHistoryGrabber -- kind of done -
 #have winrate calc in parallel?? <--????
-#make winrate window pretty/do ifs for statements regarding winrate
-#put close button on that to finish out quiz :)
+#make winrate window pretty
+#fix picture size in winrate display
+#put close button on winrate window to finish out quiz :)
