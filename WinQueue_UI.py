@@ -1,6 +1,7 @@
 __author__ = 'Derek Morales'
 
 import tkinter
+import MatchHistoryGrabber
 
 DEFAULT_FONT = ('Times New Roman', 12)
 
@@ -84,6 +85,7 @@ class WinQueueUI:
         canvas_width = self._canvas.winfo_width()
         canvas_height = self._canvas.winfo_height()
         self.ig = None
+        self.api = None
 
     def run(self) -> None:
         self._root_window.mainloop()
@@ -93,9 +95,11 @@ class WinQueueUI:
 
     def get_ig(self) -> int:
         return self.ig
-
+    def get_api(self) -> int:
+        return self.api
     def _ok_button(self):
         self.ig = self._ig_entry.get()
+        self.api = self._api_entry.get()
         self._root_window.destroy()
 
 class QuizUI:
@@ -249,11 +253,50 @@ class QuizUI:
         topemote_label.grid(
             row = 1, column = 0, padx = 10, pady = 10,
             sticky = tkinter.N + tkinter.S)
-        
+
+class winrateWindow:
+        #self.choice_frame.destroy()  ??? is there a different frame to destroy?
+    def __init__(self, winrate): 
+        self.winrate_window = tkinter.Tk()
+        #self.title_label.config(text = "Here is your current win rate")
+        self._canvas = tkinter.Canvas(
+            master = self.winrate_window, width = 400, height = 500)
+
+        self.title_label = tkinter.Label(
+            master = self.winrate_window, text = "Here is your win rate: {}".format(winrate), 
+            font = DEFAULT_FONT)
+        self.title_label.grid(
+            row = 0, column = 0, padx = 10, pady = 10,
+            sticky = tkinter.N)
+
+        self.choice_frame = tkinter.Frame(master = self.winrate_window)
+        #topemote_label = tkinter.Label(master = self.winrate_window, )
+        #topemote_label.grid(row = 1, column = 0, padx = 10, pady = 10,sticky = tkinter.N + tkinter.S)
+    def run(self) -> None:
+        self.winrate_window.mainloop()
+
+
+#make a button on each class frame that's says like "Calculate Your Winrate" or something
+#pass pass it the winrate from MatchHistoryGrabber
+# display winrate and a different statement based on >,<, or = .5  
 
 if __name__ == '__main__':
     winqueue = WinQueueUI()
     winqueue.run()
     player_ig = winqueue.get_ig()
+    riot_api_key = winqueue.get_api()
+    winrate = MatchHistoryGrabber.getMatchHistory(riot_api_key,player_ig)
     QuizUI(player_ig).run()
+    winrateWindow(winrate).run()
     
+
+
+    #'RGAPI-740dbc19-ef19-4c6f-bcc4-6e8f0a3fb8d2'
+    
+
+
+##next: delete print statement in MatchHistoryGrabber
+#make next button for role description
+#have winrate calc in parallel??
+#make winrate window pretty/do ifs for statements regarding winrate
+#put close button on that to finish out quiz :)
