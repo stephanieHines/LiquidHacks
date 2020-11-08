@@ -302,7 +302,7 @@ class winrateWindow:
         self.winrate_window = tkinter.Tk()
         self.loser_image = tkinter.PhotoImage(master=self.winrate_window, file = "r9E_Xctk-LnDTJCxh8aC6YI8Oz2QqQSEK_wdrGNggkLBtcUmokMmHbIORA6-q-rDqZVoJhJ-T-GToNJEZZ1k1PeL6L7GoR2uZmfi.gif")
         self.winner_image = tkinter.PhotoImage(master=self.winrate_window, file = "lol_league_of_legends_pool_party_taliyah_updated.gif")
-        self.hardstuck_image = tkinter.PhotoImage(master= self.winrate_window, file ="t1.gif" )
+        self.hardstuck_image = tkinter.PhotoImage(master= self.winrate_window, file ="t1rage.gif" )
         self._canvas = tkinter.Canvas(
             master = self.winrate_window, width = 400, height = 500)
 
@@ -310,21 +310,31 @@ class winrateWindow:
             master = self.winrate_window, text = "Here is your win rate: {}".format(winrate), 
             font = DEFAULT_FONT)
         self.title_label.grid(
-            row = 1, column = 0, padx = 10, pady = 10,
+            row = 0, column = 0, padx = 10, pady = 10,
             sticky = tkinter.N)
 
         self.result_frame = tkinter.Frame(master = self.winrate_window)
+        self.result_frame.grid(
+            row = 1, column = 0, padx = 10, pady = 10,
+            sticky = tkinter.N)
         if (winrate>.5):
-            winemote_label = tkinter.Label(master = self.winrate_window, image = self.winner_image)
+            winemote_label = tkinter.Label(master = self.result_frame, image = self.winner_image)
+            win_message_label = tkinter.Label(master = self.result_frame, text = "Congrats! You're in winners queue!",
+                                              font = DEFAULT_FONT)
         elif (winrate<.5):
-            winemote_label = tkinter.Label(master = self.winrate_window, image = self.loser_image)
+            winemote_label = tkinter.Label(master = self.result_frame, image = self.loser_image)
+            win_message_label = tkinter.Label(master = self.result_frame, text = "Aww, you're in losers queue. I'm sorry for your teammates.",
+                                              font = DEFAULT_FONT)
         else:
-            winemote_label = tkinter.Label(master = self.winrate_window, image = self.hardstuck_image)
+            winemote_label = tkinter.Label(master = self.result_frame, image = self.hardstuck_image)
+            win_message_label = tkinter.Label(master = self.result_frame, text = "You're hardstuck in elo hell.",
+                                              font = DEFAULT_FONT)
         
-        winemote_label.grid(row = 2, column = 0, padx = 10, pady = 10,sticky = tkinter.N + tkinter.S)
+        winemote_label.grid(row = 0, column = 0, padx = 10, pady = 10,sticky = tkinter.N + tkinter.S)
+        win_message_label.grid(row = 1, column = 0, padx = 10, pady = 10, sticky = tkinter.N + tkinter.S)
 
         cancel_button = tkinter.Button(
-            master = self.winrate_window, text = 'Finish', font = DEFAULT_FONT,
+            master = self.result_frame, text = 'Finish', font = DEFAULT_FONT,
             command = self._cancel_button)
 
         cancel_button.grid(row = 2, column = 0, padx = 10, pady = 10,
