@@ -8,7 +8,7 @@ def getMatchHistory(api_key, playername):
     response = requests.get(URL)
     response = response.json()
     encryptedAccountID = response['accountId']
-    print(response)
+    #print(response)
     wins = matches(apikey,encryptedAccountID)
     return (wins/20)
 
@@ -17,14 +17,14 @@ def matches(api_key,accountId):
     URL = "https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/" + accountId + "?queue=420&endindex=11&beginindex=1&api_key=" + apikey
     response = requests.get(URL)
     response = response.json()
-    print(response)
+    #print(response)
     matchid = []
     matches = response['matches']
     x = 0
     while x < 21:
         matchid.append([matches[x]['gameId'], matches[x]['champion']])
         x += 1
-    print(matchid)
+    #print(matchid)
     return winrate(apikey,matchid)
 
 def winrate(api_key,matchid):
@@ -34,15 +34,15 @@ def winrate(api_key,matchid):
         URL = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(match[0]) + "?api_key=" + apikey
         response = requests.get(URL)
         response = response.json()
-        print(response)
+        #print(response)
         try:
             participants = response['participants']
             for x in participants:
                 if x['championId'] == match[1]:
                     if x['stats']['win']:
                         wins += 1 
-                else:
-                    print(match[1])
+                #else:
+                    #print(match[1])
         except:
             print('oops sorry you were too monkey to analyze')
 

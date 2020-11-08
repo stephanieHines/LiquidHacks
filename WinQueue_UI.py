@@ -215,8 +215,14 @@ class QuizUI:
         topemote_label = tkinter.Label(
             master = self._quiz_window, image = self.top_emote)
         topemote_label.grid(
-            row = 1, column = 0, padx = 10, pady = 10,
+            row = 2, column = 0, padx = 10, pady = 10,
             sticky = tkinter.N + tkinter.S)
+        self.ok_button = tkinter.Button(
+            master = self._quiz_window, text = 'OK', font = DEFAULT_FONT,
+            command = self._ok_button)
+
+        self.ok_button.grid(row = 2, column = 0, padx = 10, pady = 10,
+            sticky =  tkinter.S)
 
     def jungle_command(self):
         self.choice_frame.destroy()
@@ -224,8 +230,14 @@ class QuizUI:
         topemote_label = tkinter.Label(
             master = self._quiz_window, image = self.jungle_emote)
         topemote_label.grid(
-            row = 1, column = 0, padx = 10, pady = 10,
+            row = 2, column = 0, padx = 10, pady = 10,
             sticky = tkinter.N + tkinter.S)
+        self.ok_button = tkinter.Button(
+            master = self._quiz_window, text = 'OK', font = DEFAULT_FONT,
+            command = self._ok_button)
+
+        self.ok_button.grid(row = 2, column = 0, padx = 10, pady = 10,
+            sticky =  tkinter.S)
 
     def midlane_command(self):
         self.choice_frame.destroy()
@@ -233,8 +245,14 @@ class QuizUI:
         topemote_label = tkinter.Label(
             master = self._quiz_window, image = self.mid_emote)
         topemote_label.grid(
-            row = 1, column = 0, padx = 10, pady = 10,
+            row = 2, column = 0, padx = 10, pady = 10,
             sticky = tkinter.N + tkinter.S)
+        self.ok_button = tkinter.Button(
+            master = self._quiz_window, text = 'OK', font = DEFAULT_FONT,
+            command = self._ok_button)
+
+        self.ok_button.grid(row = 2, column = 0, padx = 10, pady = 10,
+            sticky =  tkinter.S)
 
     def botlane_command(self):
         self.choice_frame.destroy()
@@ -242,8 +260,14 @@ class QuizUI:
         topemote_label = tkinter.Label(
             master = self._quiz_window, image = self.adc_emote)
         topemote_label.grid(
-            row = 1, column = 0, padx = 10, pady = 10,
+            row = 2, column = 0, padx = 10, pady = 10,
             sticky = tkinter.N + tkinter.S)
+        self.ok_button = tkinter.Button(
+            master = self._quiz_window, text = 'OK', font = DEFAULT_FONT,
+            command = self._ok_button)
+
+        self.ok_button.grid(row = 2, column = 0, padx = 10, pady = 10,
+            sticky =  tkinter.S)
 
     def support_command(self):
         self.choice_frame.destroy()
@@ -251,8 +275,17 @@ class QuizUI:
         topemote_label = tkinter.Label(
             master = self._quiz_window, image = self.supp_emote)
         topemote_label.grid(
-            row = 1, column = 0, padx = 10, pady = 10,
+            row = 2, column = 0, padx = 10, pady = 10,
             sticky = tkinter.N + tkinter.S)
+        self.ok_button = tkinter.Button(
+            master = self._quiz_window, text = 'OK', font = DEFAULT_FONT,
+            command = self._ok_button)
+
+        self.ok_button.grid(row = 2, column = 0, padx = 10, pady = 10,
+            sticky =  tkinter.S)
+    def _ok_button(self):
+        self._quiz_window.destroy()
+        
 
 class winrateWindow:
         #self.choice_frame.destroy()  ??? is there a different frame to destroy?
@@ -295,7 +328,7 @@ if __name__ == '__main__':
     
 
 
-##next: delete print statement in MatchHistoryGrabber
+##next: delete print statement in MatchHistoryGrabber -- kind of done -
 #make next button for role description
 #have winrate calc in parallel??
 #make winrate window pretty/do ifs for statements regarding winrate
