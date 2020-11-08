@@ -125,7 +125,7 @@ class QuizUI:
             sticky = tkinter.S)
         
         self.top_button = tkinter.Button(
-            master = choice_frame, text = 'Top Lane', font = DEFAULT_FONT)
+            master = choice_frame, text = 'Top Lane', font = DEFAULT_FONT,command =self._displayAns("top"))
         
         self.top_button.grid(row = 0, column = 0, padx = 10, pady = 10,
             sticky = tkinter.W + tkinter.E)
@@ -138,7 +138,7 @@ class QuizUI:
             sticky = tkinter.E)
 
         self.jungle_button = tkinter.Button(
-            master = choice_frame, text = 'Jungle', font = DEFAULT_FONT)
+            master = choice_frame, text = 'Jungle', font = DEFAULT_FONT,command =self._displayAns("jung"))
         
         self.jungle_button.grid(row = 1, column = 0, padx = 10, pady = 10,
             sticky = tkinter.W + tkinter.E)
@@ -151,7 +151,7 @@ class QuizUI:
             sticky = tkinter.E)
 
         self.mid_button = tkinter.Button(
-            master = choice_frame, text = 'Mid Lane', font = DEFAULT_FONT)
+            master = choice_frame, text = 'Mid Lane', font = DEFAULT_FONT,command =self._displayAns("mid"))
         
         self.mid_button.grid(row = 2, column = 0, padx = 10, pady = 10,
             sticky = tkinter.W + tkinter.E)
@@ -164,7 +164,7 @@ class QuizUI:
             sticky = tkinter.E)
 
         self.adc_button = tkinter.Button(
-            master = choice_frame, text = 'Bot Lane', font = DEFAULT_FONT)
+            master = choice_frame, text = 'Bot Lane', font = DEFAULT_FONT,command =self._displayAns("adc"))
         
         self.adc_button.grid(row = 0, column = 2, padx = 10, pady = 10,
             sticky = tkinter.W + tkinter.E)
@@ -177,7 +177,7 @@ class QuizUI:
             sticky = tkinter.E)
 
         self.support_button = tkinter.Button(
-            master = choice_frame, text = 'Support', font = DEFAULT_FONT)
+            master = choice_frame, text = 'Support', font = DEFAULT_FONT,command =self._displayAns("supp"))
         
         self.support_button.grid(row = 1, column = 2, padx = 10, pady = 10,
             sticky = tkinter.W + tkinter.E)
@@ -191,13 +191,55 @@ class QuizUI:
         
         canvas_width = self._canvas.winfo_width()
         canvas_height = self._canvas.winfo_height()
-        
+    def _displayAns(self, role):
+        self.role = role
+        Ans(role).run()
+        #self._quiz_window.destroy()
+
     def run(self) -> None:
         self._quiz_window.mainloop()
+
+class Ans:
+    def __init__(self,role):
+        self._ans_win = tkinter.Tk()
+        #self.league = tkinter.PhotoImage(master = self._root_window, file = "AsheSquare")
+
+        self._canvas = tkinter.Canvas(
+            master = self._ans_win, width = 400, height = 500,
+            background = '#273746')
+
+        ans_frame = tkinter.Frame(master = self._ans_win)
+        ans_frame.grid(
+            row = 1, column = 0, padx = 10, pady = 10,
+            sticky = tkinter.S)
+        
+        if (self.isAdc):
+            tkinter.Label(
+            master = self._ans_win, text = "You're a star :)",
+            font = DEFAULT_FONT)
+        #elif (self.isJung):
+           # tkinter.Label(master=self._ans_win, text = "You're a masochist ;)", font = DEFAULT_FONT)
+        #elif 
+        choice_frame = tkinter.Frame(master = self._ans_win)
+    def run(self) -> None:
+        self._ans_win.mainloop()
+       
+
+    def isAdc(self, role):
+        return role == "adc"
+    def isTop(self,role):
+        return role == "top"
+    def isMid(self, role):
+        return role == "mid"
+    def isSupp(self, role):
+        return role == "supp"
+    def isJung(self, role):
+        return role == "jung"
 
 if __name__ == '__main__':
     winqueue = WinQueueUI()
     winqueue.run()
     player_ig = winqueue.get_ig()
     QuizUI(player_ig).run()
+    
     
